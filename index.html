@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um site moderno e elegante construído com as melhores práticas de design.">
+    <title>Meu Novo Site | Design Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Texas<span>Burguer</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Cardápio</a></li>
+                <li><a href="#contact" class="btn-primary">A nossa loja</a></li>
+                <li class="cart-nav">
+                    <button id="cart-btn" aria-label="Abrir carrinho">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                        <span id="cart-count">0</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Carrinho Modal (Checkout Multi-etapa) -->
+    <div id="cart-modal" class="cart-modal">
+        <div id="cart-overlay" class="cart-overlay"></div>
+        <div class="cart-content">
+            <!-- Passo 1: Revisão do Pedido -->
+            <div id="step-1" class="cart-step active">
+                <div class="cart-header">
+                    <h2>Seu Pedido</h2>
+                    <button id="close-cart" aria-label="Fechar carrinho">&times;</button>
+                </div>
+                <div id="cart-items" class="cart-items">
+                    <p class="empty-msg">Seu carrinho está vazio 🍔</p>
+                </div>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <span>Total:</span>
+                        <span id="cart-total-value">R$ 0,00</span>
+                    </div>
+                    <button id="next-to-step-2" class="btn btn-main">Continuar Pedido</button>
+                </div>
+            </div>
+
+            <!-- Passo 2: Dados de Entrega -->
+            <div id="step-2" class="cart-step">
+                <div class="cart-header">
+                    <button class="back-btn" onclick="goToStep(1)">← Voltar</button>
+                    <h2>Entrega</h2>
+                    <button class="close-modal-btn" onclick="toggleCart()">&times;</button>
+                </div>
+                <div class="cart-body">
+                    <form id="address-form" class="checkout-form">
+                        <div class="form-group">
+                            <label for="name">Seu Nome</label>
+                            <input type="text" id="name" placeholder="Ex: Guilherme Silva" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone / WhatsApp</label>
+                            <input type="tel" id="phone" placeholder="Ex: (63) 99111-7181" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="street">Rua</label>
+                                <input type="text" id="street" placeholder="Nome da rua" required>
+                            </div>
+                            <div class="form-group" style="flex: 0 0 80px;">
+                                <label for="number">Nº</label>
+                                <input type="text" id="number" placeholder="123" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="neighborhood">Setor / Bairro</label>
+                            <input type="text" id="neighborhood" placeholder="Ex: Setor São Miguel" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="cart-footer">
+                    <button id="next-to-step-3" class="btn btn-main">Verificar Endereço</button>
+                </div>
+            </div>
+
+            <!-- Passo 3: Confirmação Final -->
+            <div id="step-3" class="cart-step">
+                <div class="cart-header">
+                    <button class="back-btn" onclick="goToStep(2)">← Voltar</button>
+                    <h2>Confirmar</h2>
+                    <button class="close-modal-btn" onclick="toggleCart()">&times;</button>
+                </div>
+                <div class="cart-body">
+                    <div class="confirmation-details">
+                        <div class="conf-section">
+                            <h3>🛒 Resumo do Pedido</h3>
+                            <div id="conf-items-list"></div>
+                            <div class="conf-values">
+                                <div class="conf-line">
+                                    <span>Subtotal:</span>
+                                    <span id="conf-subtotal"></span>
+                                </div>
+                                <div class="conf-line">
+                                    <span>Taxa de Entrega:</span>
+                                    <span id="conf-delivery"></span>
+                                </div>
+                                <div class="conf-line total">
+                                    <span>Total Geral:</span>
+                                    <span id="conf-total-value"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conf-section">
+                            <h3>📍 Local de Entrega</h3>
+                            <p id="conf-address-text"></p>
+                            <p id="conf-customer-info"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart-footer">
+                    <button id="final-checkout-btn" class="btn btn-main">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        Confirmar e Pedir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="gradient-text">O Sabor Real em Cada Mordida</h1>
+                <p>Hambúrgueres artesanais de verdade, grelhados no fogo e com ingredientes selecionados para uma
+                    experiência inesquecível.</p>
+                <div class="hero-btns">
+                    <a href="#menu" class="btn btn-main">Ver Cardápio</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="imgs/hero_burger_1768981940180.png" alt="Hambúrguer Premium" class="main-burger-img">
+            </div>
+        </div>
+    </header>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nosso Cardápio</h2>
+                <p>Escolha o seu favorito e sinta a explosão de sabores.</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <img src="imgs/hero_burger_1768981940180.png" alt="Burger">
+                    <div class="menu-card-content">
+                        <h3>Supreme Bacon</h3>
+                        <p>Blend 180g, muito bacon crocante, cheddar e maionese defumada.</p>
+                        <span class="price">R$ 38,90</span>
+                        <button class="btn-mini">Adicionar</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <img src="imgs/smash_burger_1768983474493.png" alt="Classic Smash">
+                    <div class="menu-card-content">
+                        <h3>Classic Smash</h3>
+                        <p>Dois smash burgers de 80g, queijo americano, picles e molho secreto.</p>
+                        <span class="price">R$ 29,90</span>
+                        <button class="btn-mini">Adicionar</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <img src="imgs/veggie_burger_1768983393313.png" alt="Veggies Garden">
+                    <div class="menu-card-content">
+                        <h3>Veggies Garden</h3>
+                        <p>Hambúrguer de grão de bico, abacate, cebola roxa e maionese vegana.</p>
+                        <span class="price">R$ 34,90</span>
+                        <button class="btn-mini">Adicionar</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <img src="imgs/chicken_burger_1768983538967.png" alt="Crispy Chicken">
+                    <div class="menu-card-content">
+                        <h3>Crispy Chicken</h3>
+                        <p>Sobrecoxa desossada crocante, coleslaw picante e mel silvestre.</p>
+                        <span class="price">R$ 32,90</span>
+                        <button class="btn-mini">Adicionar</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <img src="imgs/hero_burger_1768981940180.png" alt="Double Cheddar">
+                    <div class="menu-card-content">
+                        <h3>Double Cheddar</h3>
+                        <p>O dobro de carne e o triplo de queijo cheddar derretido no fogo.</p>
+                        <span class="price">R$ 44,90</span>
+                        <button class="btn-mini">Adicionar</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <img src="imgs/burger_sides_1768982023522.png" alt="Sides">
+                    <div class="menu-card-content">
+                        <h3>Combo Galera</h3>
+                        <p>2 Burgers + Batata G + Refri 1L. Perfeito para compartilhar.</p>
+                        <span class="price">R$ 89,99</span>
+                        <button class="btn-mini">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>A Nossa Loja</h2>
+                <p>Venha nos visitar ou faça seu pedido online.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="icon">📍</div>
+                    <h3>Localização</h3>
+                    <p>Av. Filadelfia , 2345<br>Setor São Miguel, Araguaína - TO</p>
+                </div>
+                <div class="contact-card">
+                    <div class="icon">⏰</div>
+                    <h3>Horário</h3>
+                    <p>Terça a Domingo<br>19:00 às 00:00</p>
+                </div>
+                <div class="contact-card">
+                    <div class="icon">💬</div>
+                    <h3>WhatsApp</h3>
+                    <p>Faça seu pedido agora:</p>
+                    <a href="https://wa.me/5563991117181?text=Ol%C3%A1,%20boa%20noite!" class="whatsapp-link">(63)
+                        99111-7181</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">Texas<span>Burguer</span></div>
+                <p>&copy; 2026 TexasBurguer. Todos os direitos reservados.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/_guilherme_tr_?igsh=MXdxZGZ3b2tsbTVvag==">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
