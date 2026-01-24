@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Um site moderno e elegante construído com as melhores práticas de design.">
-    <title>Meu Novo Site | Design Premium</title>
+    <title>Ponto do Sabor | Bar e Lanches</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -17,25 +17,94 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <div class="logo">Texas<span>Burguer</span></div>
+            <div class="logo">
+                <img src="imgs/logo.png" alt="Ponto do Sabor" class="logo-img">
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#menu">Cardápio</a></li>
                 <li><a href="#contact" class="btn-primary">A nossa loja</a></li>
-                <li class="cart-nav">
-                    <button id="cart-btn" aria-label="Abrir carrinho">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                            <line x1="3" y1="6" x2="21" y2="6" />
-                            <path d="M16 10a4 4 0 0 1-8 0" />
-                        </svg>
-                        <span id="cart-count">0</span>
-                    </button>
-                </li>
             </ul>
+            <div class="nav-actions">
+                <button id="cart-btn" class="nav-icon-btn" aria-label="Abrir carrinho">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span id="cart-count">0</span>
+                </button>
+                <button class="mobile-menu-btn nav-icon-btn" aria-label="Abrir menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+    <div id="mobile-menu-drawer" class="mobile-menu-drawer">
+        <div class="drawer-header">
+            <img src="imgs/logo.png" alt="Logo" class="drawer-logo">
+            <button id="close-mobile-menu" class="close-drawer-btn">&times;</button>
+        </div>
+
+        <div class="drawer-status-banner">
+            <span id="store-status-icon" class="status-dot"></span>
+            <div class="status-text">
+                <span id="store-status-text">Verificando...</span>
+                <small id="store-hours">19:00 às 00:00</small>
+            </div>
+        </div>
+
+        <div class="drawer-content">
+            <div class="drawer-section">
+                <h3>Navegação</h3>
+                <ul class="drawer-links">
+                    <li><a href="#home" class="drawer-link"><span class="icon">🏠</span> Início</a></li>
+                    <li><a href="#menu" class="drawer-link"><span class="icon">🍔</span> Cardápio</a></li>
+                    <li><a href="#contact" class="drawer-link"><span class="icon">📍</span> Nossa Loja</a></li>
+                </ul>
+            </div>
+
+            <div class="drawer-section">
+                <h3>Minha Conta</h3>
+                <ul class="drawer-links">
+                    <li><button id="drawer-btn-addresses" class="drawer-link-btn"><span class="icon">🗺️</span>
+                            Endereços Salvos</button></li>
+                    <!-- Future: <li><button class="drawer-link-btn"><span class="icon">📜</span> Meus Pedidos</button></li> -->
+                </ul>
+            </div>
+
+            <div class="drawer-section">
+                <h3>Configurações</h3>
+                <div class="drawer-setting-row">
+                    <span>Modo Claro</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="drawer-footer">
+            <a href="https://wa.me/5563991117181" target="_blank" class="btn btn-whatsapp-full">
+                <span class="icon">💬</span> Falar no WhatsApp
+            </a>
+            <div class="drawer-socials">
+                <a href="https://www.instagram.com/_guilherme_tr_?igsh=MXdxZGZ3b2tsbTVvag==" target="_blank">📷
+                    Instagram</a>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Carrinho Modal (Checkout Multi-etapa) -->
     <div id="cart-modal" class="cart-modal">
@@ -69,28 +138,100 @@
                 <div class="cart-body">
                     <form id="address-form" class="checkout-form">
                         <div class="form-group">
+                            <label for="phone">Telefone / WhatsApp</label>
+                            <input type="tel" id="phone" placeholder="(DDD) 99999-9999" maxlength="15" required>
+                        </div>
+                        <div class="form-group">
                             <label for="name">Seu Nome</label>
                             <input type="text" id="name" placeholder="Ex: Guilherme Silva" required>
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Telefone / WhatsApp</label>
-                            <input type="tel" id="phone" placeholder="Ex: (63) 99111-7181" required>
+
+                        <!-- Seleção de Endereços Salvos -->
+                        <div id="saved-addresses-container" style="display: none; margin-bottom: 1.5rem;">
+                            <label
+                                style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">Seus
+                                Endereços</label>
+                            <div id="saved-addresses-list" class="saved-addresses-list">
+                                <!-- Cards de endereço inseridos via JS -->
+                            </div>
+                            <button type="button" id="btn-new-address" class="btn-text">+ Usar outro endereço</button>
                         </div>
-                        <div class="form-row">
+
+                        <div id="new-address-fields">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="street">Rua</label>
+                                    <input type="text" id="street" placeholder="Nome da rua" required>
+                                </div>
+                                <div class="form-group" style="flex: 1;">
+                                    <div
+                                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <label for="number" style="margin-bottom: 0;">Nº</label>
+                                        <label
+                                            style="font-size: 0.75rem; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                            <input type="checkbox" id="no-number"
+                                                style="width: 14px; height: 14px; cursor: pointer;"> Sem Número
+                                        </label>
+                                    </div>
+                                    <input type="text" id="number" placeholder="123" required>
+                                </div>
+                            </div>
                             <div class="form-group">
-                                <label for="street">Rua</label>
-                                <input type="text" id="street" placeholder="Nome da rua" required>
+                                <label for="neighborhood">Setor / Bairro</label>
+                                <input type="text" id="neighborhood" placeholder="Ex: Setor São Miguel" required>
                             </div>
-                            <div class="form-group" style="flex: 0 0 80px;">
-                                <label for="number">Nº</label>
-                                <input type="text" id="number" placeholder="123" required>
+                            <div class="form-group">
+                                <label for="complement">Complemento (opcional)</label>
+                                <input type="text" id="complement" placeholder="Apto, Bloco, Referência...">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="neighborhood">Setor / Bairro</label>
-                            <input type="text" id="neighborhood" placeholder="Ex: Setor São Miguel" required>
                         </div>
                     </form>
+
+                    <!-- Seção de Pagamento -->
+                    <div class="payment-section">
+                        <h3>Forma de Pagamento</h3>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="pix">
+                                <span class="payment-card">
+                                    <span class="icon">💠</span>
+                                    <span>Pix</span>
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="card">
+                                <span class="payment-card">
+                                    <span class="icon">💳</span>
+                                    <span>Cartão</span>
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="cash">
+                                <span class="payment-card">
+                                    <span class="icon">💵</span>
+                                    <span>Dinheiro</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Campo de Troco (Condicional) -->
+                        <div id="change-container" class="change-container" style="display: none;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <label for="change-input" style="margin-bottom: 0;">Troco para quanto?</label>
+                                <label
+                                    style="font-size: 0.75rem; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                    <input type="checkbox" id="no-change"
+                                        style="width: 14px; height: 14px; cursor: pointer;"> Não preciso
+                                </label>
+                            </div>
+                            <div class="input-wrapper">
+                                <span>R$</span>
+                                <input type="number" id="change-input" placeholder="0,00" step="0.01" min="0">
+                            </div>
+                            <p id="change-message" class="change-message"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="cart-footer">
                     <button id="next-to-step-3" class="btn btn-main">Verificar Endereço</button>
@@ -128,6 +269,7 @@
                             <h3>📍 Local de Entrega</h3>
                             <p id="conf-address-text"></p>
                             <p id="conf-customer-info"></p>
+                            <p id="conf-payment-info" class="conf-payment-info"></p>
                         </div>
                     </div>
                 </div>
@@ -167,59 +309,195 @@
                 <h2>Nosso Cardápio</h2>
                 <p>Escolha o seu favorito e sinta a explosão de sabores.</p>
             </div>
-            <div class="menu-grid">
-                <div class="menu-card">
-                    <img src="imgs/hero_burger_1768981940180.png" alt="Burger">
-                    <div class="menu-card-content">
-                        <h3>Supreme Bacon</h3>
-                        <p>Blend 180g, muito bacon crocante, cheddar e maionese defumada.</p>
-                        <span class="price">R$ 38,90</span>
-                        <button class="btn-mini">Adicionar</button>
+            <div class="menu-tabs">
+                <button class="tab-btn active" data-category="hamburgers">🍔 Hamburguers</button>
+                <button class="tab-btn" data-category="drinks">🥤 Bebidas</button>
+                <button class="tab-btn" data-category="sides">🍟 Acompanhamentos</button>
+            </div>
+
+            <!-- Categoria: Hamburguers -->
+            <div id="hamburgers" class="menu-category-container active">
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <img src="imgs/hero_burger_1768981940180.png" alt="Burger">
+                        <div class="menu-card-content">
+                            <h3>Supreme Bacon</h3>
+                            <p>Blend 180g, muito bacon crocante, cheddar e maionese defumada.</p>
+                            <span class="price">R$ 38,90</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <img src="imgs/smash_burger_1768983474493.png" alt="Classic Smash">
+                        <div class="menu-card-content">
+                            <h3>Classic Smash</h3>
+                            <p>Dois smash burgers de 80g, queijo americano, picles e molho secreto.</p>
+                            <span class="price">R$ 29,90</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <img src="imgs/veggie_burger_1768983393313.png" alt="Veggies Garden">
+                        <div class="menu-card-content">
+                            <h3>Veggies Garden</h3>
+                            <p>Hambúrguer de grão de bico, abacate, cebola roxa e maionese vegana.</p>
+                            <span class="price">R$ 34,90</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <img src="imgs/chicken_burger_1768983538967.png" alt="Crispy Chicken">
+                        <div class="menu-card-content">
+                            <h3>Crispy Chicken</h3>
+                            <p>Sobrecoxa desossada crocante, coleslaw picante e mel silvestre.</p>
+                            <span class="price">R$ 32,90</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <img src="imgs/hero_burger_1768981940180.png" alt="Double Cheddar">
+                        <div class="menu-card-content">
+                            <h3>Double Cheddar</h3>
+                            <p>O dobro de carne e o triplo de queijo cheddar derretido no fogo.</p>
+                            <span class="price">R$ 44,90</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <img src="imgs/burger_sides_1768982023522.png" alt="Sides">
+                        <div class="menu-card-content">
+                            <h3>Combo Galera</h3>
+                            <p>2 Burgers + Batata G + Refri 1L. Perfeito para compartilhar.</p>
+                            <span class="price">R$ 89,99</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
                     </div>
                 </div>
-                <div class="menu-card">
-                    <img src="imgs/smash_burger_1768983474493.png" alt="Classic Smash">
-                    <div class="menu-card-content">
-                        <h3>Classic Smash</h3>
-                        <p>Dois smash burgers de 80g, queijo americano, picles e molho secreto.</p>
-                        <span class="price">R$ 29,90</span>
-                        <button class="btn-mini">Adicionar</button>
+            </div>
+
+            <!-- Categoria: Bebidas -->
+            <div id="drinks" class="menu-category-container">
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Coca Cola Lata 350ml</h3>
+                            <p>Gelada e refrescante.</p>
+                            <span class="price">R$ 6,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Coca Cola 1 Lt</h3>
+                            <p>Para acompanhar o seu burger favoritio.</p>
+                            <span class="price">R$ 10,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Coca Cola 2 Lt</h3>
+                            <p>Ideal para compartilhar.</p>
+                            <span class="price">R$ 15,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Guaraná lata 350ml</h3>
+                            <p>O sabor do Brasil.</p>
+                            <span class="price">R$ 6,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Guaraná 1 Lt</h3>
+                            <p>Gelado e refrescante.</p>
+                            <span class="price">R$ 9,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Guaraná 2 Lt</h3>
+                            <p>Para toda a galera.</p>
+                            <span class="price">R$ 14,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Fanta lata 350ml</h3>
+                            <p>Sabor laranja ou uva.</p>
+                            <span class="price">R$ 6,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Fanta 1 Lt</h3>
+                            <p>Mega refrescante.</p>
+                            <span class="price">R$ 9,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Fanta 2 Lt</h3>
+                            <p>Festa completa.</p>
+                            <span class="price">R$ 14,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Suco de Laranja 1Lt</h3>
+                            <p>Suco natural e refresquinho.</p>
+                            <span class="price">R$ 18,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="menu-card">
+                        <div class="menu-card-content">
+                            <h3>Suco de Maracujá 1Lt</h3>
+                            <p>Relaxante e natural.</p>
+                            <span class="price">R$ 18,00</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
                     </div>
                 </div>
-                <div class="menu-card">
-                    <img src="imgs/veggie_burger_1768983393313.png" alt="Veggies Garden">
-                    <div class="menu-card-content">
-                        <h3>Veggies Garden</h3>
-                        <p>Hambúrguer de grão de bico, abacate, cebola roxa e maionese vegana.</p>
-                        <span class="price">R$ 34,90</span>
-                        <button class="btn-mini">Adicionar</button>
+            </div>
+
+            <!-- Categoria: Acompanhamentos -->
+            <div id="sides" class="menu-category-container">
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <img src="imgs/burger_sides_1768982023522.png" alt="Fritas">
+                        <div class="menu-card-content">
+                            <h3>Batata Frita P</h3>
+                            <p>Porção individual sequinha e crocante.</p>
+                            <span class="price">R$ 10,90</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
                     </div>
-                </div>
-                <div class="menu-card">
-                    <img src="imgs/chicken_burger_1768983538967.png" alt="Crispy Chicken">
-                    <div class="menu-card-content">
-                        <h3>Crispy Chicken</h3>
-                        <p>Sobrecoxa desossada crocante, coleslaw picante e mel silvestre.</p>
-                        <span class="price">R$ 32,90</span>
-                        <button class="btn-mini">Adicionar</button>
+                    <div class="menu-card">
+                        <img src="imgs/burger_sides_1768982023522.png" alt="Fritas">
+                        <div class="menu-card-content">
+                            <h3>Batata Frita M</h3>
+                            <p>Crocantes por fora, macias por dentro.</p>
+                            <span class="price">R$ 15,90</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
                     </div>
-                </div>
-                <div class="menu-card">
-                    <img src="imgs/hero_burger_1768981940180.png" alt="Double Cheddar">
-                    <div class="menu-card-content">
-                        <h3>Double Cheddar</h3>
-                        <p>O dobro de carne e o triplo de queijo cheddar derretido no fogo.</p>
-                        <span class="price">R$ 44,90</span>
-                        <button class="btn-mini">Adicionar</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <img src="imgs/burger_sides_1768982023522.png" alt="Sides">
-                    <div class="menu-card-content">
-                        <h3>Combo Galera</h3>
-                        <p>2 Burgers + Batata G + Refri 1L. Perfeito para compartilhar.</p>
-                        <span class="price">R$ 89,99</span>
-                        <button class="btn-mini">Adicionar</button>
+                    <div class="menu-card">
+                        <img src="imgs/burger_sides_1768982023522.png" alt="Fritas">
+                        <div class="menu-card-content">
+                            <h3>Batata Frita G</h3>
+                            <p>A porção ideal para dividir.</p>
+                            <span class="price">R$ 22,90</span>
+                            <button class="btn-mini">Adicionar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -257,8 +535,11 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="logo">Texas<span>Burguer</span></div>
-                <p>&copy; 2026 TexasBurguer. Todos os direitos reservados.</p>
+                <div class="logo">
+                    <img src="imgs/logo.png" alt="Ponto do Sabor" class="logo-img" style="height: 60px;">
+                </div>
+                <p>&copy; 2026 Ponto do Sabor. Todos os direitos reservados.</p>
+                <p class="developer-credit">Criado e desenvolvido por <span class="gold-text">GUILHERME LOPES</span></p>
                 <div class="social-links">
                     <a href="https://www.instagram.com/_guilherme_tr_?igsh=MXdxZGZ3b2tsbTVvag==">Instagram</a>
                 </div>
